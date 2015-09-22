@@ -164,7 +164,7 @@ public class TemperatureSeriesAnalysis {
     /**
      *
      * @throws IllegalArgumentException if array is empty or non initialised
-     * @param tempValue
+     * @param tempValue - value of temperature
      * @return array of values, that less than tempValue, in the same order, like in source array (temperatureSeries)
      */
     public double[] findTempsLessThen(double tempValue) {
@@ -179,7 +179,7 @@ public class TemperatureSeriesAnalysis {
     /**
      *
      * @throws IllegalArgumentException if array is empty or non initialised
-     * @param tempValue
+     * @param tempValue value of temperature
      * @return array of values, that greater than tempValue, in the same order, like in source array (temperatureSeries)
      */
     public double[] findTempsGreaterThen(double tempValue){

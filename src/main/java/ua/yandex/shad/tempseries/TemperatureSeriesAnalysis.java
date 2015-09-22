@@ -1,34 +1,29 @@
 package ua.yandex.shad.tempseries;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
     private static final double ABSOLUTE_ZERO = -273;
     private static final double DELTA = 0.000001;
-    private double[] temperatureSeries;
-    private int curNumberOfElements = 0;
 
-    private static class DoubleComparator implements Comparator<Double>,
-            Serializable {
-        private static final long serialVersionUID = 123456L;
-
+    private static Comparator<Double> DoubleComparator = new
+            Comparator<Double>(){
         @Override
         public int compare(Double first, Double second) {
             return first.compareTo(second);
         }
-    }
+    };
 
-    private static class ReversedDoubleComparator implements
-            Comparator<Double>, Serializable {
-        private static final long serialVersionUID = 654321L;
-
+    private static Comparator<Double> ReversedDoubleComparator = new
+            Comparator<Double>(){
         @Override
         public int compare(Double first, Double second) {
             return second.compareTo(first);
         }
-    }
+    };
+    private double[] temperatureSeries;
+    private int curNumberOfElements = 0;
 
     /**
      * initialize temperatureSeries as empty array
@@ -62,7 +57,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double average() {
-        if (temperatureSeries == null || curNumberOfElements == 0) {
+        if (curNumberOfElements == 0) {
             throw new IllegalArgumentException();
         }
 
@@ -78,7 +73,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double deviation() {
-        if (temperatureSeries == null || curNumberOfElements == 0) {
+        if (curNumberOfElements == 0) {
             throw new IllegalArgumentException();
         }
 
@@ -97,7 +92,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double min() {
-        if (temperatureSeries == null || curNumberOfElements == 0) {
+        if (curNumberOfElements == 0) {
             throw new IllegalArgumentException();
         }
 
@@ -115,7 +110,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double max() {
-        if (temperatureSeries == null || curNumberOfElements == 0) {
+        if (curNumberOfElements == 0) {
             throw new IllegalArgumentException();
         }
 
@@ -145,7 +140,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double findTempClosestToValue(double tempValue) {
-        if (temperatureSeries == null || curNumberOfElements == 0) {
+        if (curNumberOfElements == 0) {
             throw new IllegalArgumentException();
         }
 
@@ -171,7 +166,7 @@ public class TemperatureSeriesAnalysis {
 
     private double[] findTempsXThan(double tempValue, Comparator<Double>
             comparator) {
-        if (temperatureSeries == null || curNumberOfElements == 0) {
+        if (curNumberOfElements == 0) {
             throw new IllegalArgumentException();
         }
 
@@ -200,7 +195,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double[] findTempsLessThen(double tempValue) {
-        return findTempsXThan(tempValue, new ReversedDoubleComparator());
+        return findTempsXThan(tempValue, ReversedDoubleComparator);
     }
 
     /**
@@ -210,7 +205,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double[] findTempsGreaterThen(double tempValue) {
-        return findTempsXThan(tempValue, new DoubleComparator());
+        return findTempsXThan(tempValue, DoubleComparator);
     }
 
     /**

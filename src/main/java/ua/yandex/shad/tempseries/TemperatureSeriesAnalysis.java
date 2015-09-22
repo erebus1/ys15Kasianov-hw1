@@ -9,12 +9,14 @@ public class TemperatureSeriesAnalysis {
     private int curNumberOfElements = 0;
 
     private static class DoubleComparator implements Comparator<Double>, Serializable  {
+        private static final long serialVersionUID = 123456L;
         @Override
         public int compare(Double o1, Double o2) {
             return o1.compareTo(o2);
         }
     }
     private static class ReversedDoubleComparator implements Comparator<Double>, Serializable {
+        private static final long serialVersionUID = 654321L;
         @Override
         public int compare(Double o1, Double o2) {
             return o2.compareTo(o1);

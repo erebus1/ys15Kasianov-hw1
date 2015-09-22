@@ -1,5 +1,6 @@
 package ua.yandex.shad.tempseries;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.InputMismatchException;
 
@@ -7,13 +8,13 @@ public class TemperatureSeriesAnalysis {
     private double[] temperatureSeries;
     private int curNumberOfElements = 0;
 
-    private static class DoubleComparator implements Comparator<Double>  {
+    private static class DoubleComparator implements Comparator<Double>, Serializable  {
         @Override
         public int compare(Double o1, Double o2) {
             return o1.compareTo(o2);
         }
     }
-    private static class ReversedDoubleComparator implements Comparator<Double>  {
+    private static class ReversedDoubleComparator implements Comparator<Double>, Serializable {
         @Override
         public int compare(Double o1, Double o2) {
             return o2.compareTo(o1);

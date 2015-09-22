@@ -5,10 +5,10 @@ import java.util.Comparator;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
+    private static final double ABSOLUTE_ZERO = -273;
+    private static final double DELTA = 0.000001;
     private double[] temperatureSeries;
     private int curNumberOfElements = 0;
-    private final static double absoluteZero = -273;
-    private final static double delta = 0.000001;
 
     private static class DoubleComparator implements Comparator<Double>,
             Serializable {
@@ -46,7 +46,7 @@ public class TemperatureSeriesAnalysis {
      */
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temperature : temperatureSeries) {
-            if (temperature < absoluteZero) {
+            if (temperature < ABSOLUTE_ZERO) {
                 throw new InputMismatchException();
             }
         }
@@ -151,7 +151,7 @@ public class TemperatureSeriesAnalysis {
 
         double closestToValue = temperatureSeries[0];
         for (int i = 0; i < curNumberOfElements; i++) {
-            if (Math.abs(temperatureSeries[i] - tempValue) < delta) {
+            if (Math.abs(temperatureSeries[i] - tempValue) < DELTA) {
                 closestToValue = tempValue;
                 break;
             }
@@ -160,7 +160,7 @@ public class TemperatureSeriesAnalysis {
                 closestToValue = temperatureSeries[i];
             } else {
                 if (Math.abs(Math.abs(closestToValue - tempValue) - Math.abs(
-                        temperatureSeries[i] - tempValue)) < delta) {
+                        temperatureSeries[i] - tempValue)) < DELTA) {
                     closestToValue = Math.max(closestToValue,
                             temperatureSeries[i]);
                 }
@@ -233,7 +233,7 @@ public class TemperatureSeriesAnalysis {
      */
     public int addTemps(double... temps) {
         for (double temperature : temps) {
-            if (temperature < absoluteZero) {
+            if (temperature < ABSOLUTE_ZERO) {
                 throw new InputMismatchException();
             }
         }
@@ -259,8 +259,8 @@ public class TemperatureSeriesAnalysis {
         return temperatureSeries.length
                 * (int) Math.pow(2,
                         (int) Math.ceil(Math.log(
-                                ((double) newNumberOfElements) /
-                                        temperatureSeries.length) /
-                                Math.log(2)));
+                                ((double) newNumberOfElements)
+                                        / temperatureSeries.length)
+                                / Math.log(2)));
     }
 }

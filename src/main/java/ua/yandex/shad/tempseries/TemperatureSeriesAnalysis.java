@@ -7,16 +7,16 @@ public class TemperatureSeriesAnalysis {
     private static final double ABSOLUTE_ZERO = -273;
     private static final double DELTA = 0.000001;
 
-    private static Comparator<Double> DoubleComparator = new
-            Comparator<Double>(){
+    private static final Comparator<Double> DOUBLE_COMPARATOR = new
+            Comparator<Double>() {
         @Override
         public int compare(Double first, Double second) {
             return first.compareTo(second);
         }
     };
 
-    private static Comparator<Double> ReversedDoubleComparator = new
-            Comparator<Double>(){
+    private static final Comparator<Double> REVERSED_DOUBLE_COMPARATOR = new
+            Comparator<Double>() {
         @Override
         public int compare(Double first, Double second) {
             return second.compareTo(first);
@@ -195,7 +195,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double[] findTempsLessThen(double tempValue) {
-        return findTempsXThan(tempValue, ReversedDoubleComparator);
+        return findTempsXThan(tempValue, REVERSED_DOUBLE_COMPARATOR);
     }
 
     /**
@@ -205,7 +205,7 @@ public class TemperatureSeriesAnalysis {
      * @throws IllegalArgumentException if array is empty or non initialised
      */
     public double[] findTempsGreaterThen(double tempValue) {
-        return findTempsXThan(tempValue, DoubleComparator);
+        return findTempsXThan(tempValue, DOUBLE_COMPARATOR);
     }
 
     /**

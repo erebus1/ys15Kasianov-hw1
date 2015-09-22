@@ -7,16 +7,16 @@ import java.util.InputMismatchException;
 public class TemperatureSeriesAnalysis {
     private double[] temperatureSeries;
     private int curNumberOfElements = 0;
-    private final double absoluteZero = -273;
-    private final double delta = 0.000001;
+    private final static double absoluteZero = -273;
+    private final static double delta = 0.000001;
 
     private static class DoubleComparator implements Comparator<Double>,
             Serializable {
         private static final long serialVersionUID = 123456L;
 
         @Override
-        public int compare(Double o1, Double o2) {
-            return o1.compareTo(o2);
+        public int compare(Double first, Double second) {
+            return first.compareTo(second);
         }
     }
 
@@ -25,8 +25,8 @@ public class TemperatureSeriesAnalysis {
         private static final long serialVersionUID = 654321L;
 
         @Override
-        public int compare(Double o1, Double o2) {
-            return o2.compareTo(o1);
+        public int compare(Double first, Double second) {
+            return second.compareTo(first);
         }
     }
 
@@ -85,8 +85,8 @@ public class TemperatureSeriesAnalysis {
         double average = this.average();
         double sum = 0;
         for (int i = 0; i < curNumberOfElements; i++) {
-            sum += (temperatureSeries[i] - average) * (temperatureSeries[i] -
-                    average);
+            sum += (temperatureSeries[i] - average) * (temperatureSeries[i]
+                    - average);
         }
 
         return Math.sqrt(sum / (curNumberOfElements - 1));
@@ -155,12 +155,12 @@ public class TemperatureSeriesAnalysis {
                 closestToValue = tempValue;
                 break;
             }
-            if (Math.abs(closestToValue - tempValue) > Math.abs
-                    (temperatureSeries[i] - tempValue)) {
+            if (Math.abs(closestToValue - tempValue) > Math.abs(
+                    temperatureSeries[i] - tempValue)) {
                 closestToValue = temperatureSeries[i];
             } else {
-                if (Math.abs(Math.abs(closestToValue - tempValue) - Math.abs
-                        (temperatureSeries[i] - tempValue)) < delta) {
+                if (Math.abs(Math.abs(closestToValue - tempValue) - Math.abs(
+                        temperatureSeries[i] - tempValue)) < delta) {
                     closestToValue = Math.max(closestToValue,
                             temperatureSeries[i]);
                 }
@@ -256,9 +256,11 @@ public class TemperatureSeriesAnalysis {
     }
 
     private int calculateNewSize(int newNumberOfElements) {
-        return temperatureSeries.length *
-                (int) Math.pow(2,
+        return temperatureSeries.length
+                * (int) Math.pow(2,
                         (int) Math.ceil(Math.log(
-                                ((double) newNumberOfElements) / temperatureSeries.length) / Math.log(2)));
+                                ((double) newNumberOfElements) /
+                                        temperatureSeries.length) /
+                                Math.log(2)));
     }
 }

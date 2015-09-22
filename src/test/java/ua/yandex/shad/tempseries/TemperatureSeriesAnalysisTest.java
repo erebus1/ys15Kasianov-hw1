@@ -399,6 +399,7 @@ public class TemperatureSeriesAnalysisTest {
         double actualResult = temperatureSeriesAnalysis.max();
         assertEquals(expectedResult, actualResult, 0.00001);
     }
+
     @Test
     public void testFindTempClosestToZeroAfterAddingElements(){
         double[] arg = {1,1,1,1};
@@ -407,6 +408,14 @@ public class TemperatureSeriesAnalysisTest {
         temperatureSeriesAnalysis.addTemps(arg2);
         double expectedResult = 1;
         double actualResult = temperatureSeriesAnalysis.findTempClosestToZero();
+        assertEquals(expectedResult, actualResult, 0.00001);
+    }
+    @Test
+    public void testFindTempClosestToValueWhenValuePresentedInArray(){
+        double[] arg = {1,2,10,11};
+        TemperatureSeriesAnalysis temperatureSeriesAnalysis = new TemperatureSeriesAnalysis(arg);
+        double expectedResult = 2;
+        double actualResult = temperatureSeriesAnalysis.findTempClosestToValue(2);
         assertEquals(expectedResult, actualResult, 0.00001);
     }
 

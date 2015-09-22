@@ -7,6 +7,19 @@ public class TemperatureSeriesAnalysis {
     private double[] temperatureSeries;
     private int curNumberOfElements = 0;
 
+    private static class DoubleComparator implements Comparator<Double>  {
+        @Override
+        public int compare(Double o1, Double o2) {
+            return o1.compareTo(o2);
+        }
+    }
+    private static class ReversedDoubleComparator implements Comparator<Double>  {
+        @Override
+        public int compare(Double o1, Double o2) {
+            return o2.compareTo(o1);
+        }
+    }
+
     /**
      * initialize temperatureSeries as empty array
      */
@@ -123,15 +136,15 @@ public class TemperatureSeriesAnalysis {
 
         double closestToValue = temperatureSeries[0];
         for (int i = 0; i<curNumberOfElements; i++){
-            if (temperatureSeries[i] == tempValue){
+            if (Math.abs(temperatureSeries[i] - tempValue) < 0.000001) {
                 closestToValue = tempValue;
                 break;
             }
-            if (Math.abs(closestToValue-tempValue) > Math.abs(temperatureSeries[i]-tempValue)){
+            if (Math.abs(closestToValue-tempValue) > Math.abs(temperatureSeries[i]-tempValue)) {
                 closestToValue = temperatureSeries[i];
             }
             else{
-                if (Math.abs(closestToValue - tempValue) == Math.abs(temperatureSeries[i] - tempValue)) {
+                if (Math.abs(Math.abs(closestToValue - tempValue) - Math.abs(temperatureSeries[i] - tempValue)) < 0.000001) {
                     closestToValue = Math.max(closestToValue, temperatureSeries[i]);
                 }
             }
@@ -168,12 +181,7 @@ public class TemperatureSeriesAnalysis {
      * @return array of values, that less than tempValue, in the same order, like in source array (temperatureSeries)
      */
     public double[] findTempsLessThen(double tempValue) {
-        return findTempsXThan(tempValue, new Comparator<Double>() {
-            @Override
-            public int compare(Double o1, Double o2) {
-                return -o1.compareTo(o2);
-            }
-        });
+        return findTempsXThan(tempValue, new ReversedDoubleComparator());
     }
 
     /**
@@ -183,12 +191,7 @@ public class TemperatureSeriesAnalysis {
      * @return array of values, that greater than tempValue, in the same order, like in source array (temperatureSeries)
      */
     public double[] findTempsGreaterThen(double tempValue){
-        return findTempsXThan(tempValue, new Comparator<Double>() {
-            @Override
-            public int compare(Double o1, Double o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        return findTempsXThan(tempValue, new DoubleComparator());
     }
 
     /**
